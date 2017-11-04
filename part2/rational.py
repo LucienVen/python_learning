@@ -30,3 +30,44 @@ class Rational:
 
         self._num = sign * (num // g)
         self._den = den // g
+
+    # 解析操作(提供方法返回内部属性)
+    def num(self):
+        return self._num
+    def den(self):
+        return self._den
+
+    # 实例方法
+    def __add__(self, another):
+        den = self._den * another.den()
+        num = (self._num * another.den() + self._den * another.num())
+        return Rational(num, den)
+
+    # 特殊方法名：+ __add__; - __sub__; * __mul__; // __floordiv__ ;  .........
+
+    # 有理数相等
+    def __eq__(self, another):
+        return self._num * another.den() == self._den * another.num()
+
+    # 有理数小于 __lt__
+
+    # 对象转换到字符串
+    # 有理数的字符串转换方法
+    def __str__(self):
+        return str(self._num) + "/" + str(self._den)
+
+    def print(self):
+        print(self._num, "/", self._den)
+
+
+
+
+def main():
+    p = Rational(12, 60)
+    print(p.num())
+    print(p.den())
+    p.print()
+
+
+if __name__ == '__main__':
+    main()
