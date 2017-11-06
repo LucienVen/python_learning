@@ -74,3 +74,49 @@ class Person:
                         "姓名：" + self._name,
                         "性别：" + self._sex,
                         "出生日期：" + str(self._birthday)))
+
+
+# 学生类的实现
+class Student(Person):
+    _id_num = 0
+
+    # 生成学号规则
+    @classmethod
+    def _id_gen(cls):
+        cls._id_num += 1
+        year = datetime.date.today().year   # 获取入学年份
+        return "1{:04}{:05}".format(year, cls._id_num) # 第二个参数为学生序号
+
+    def __init__(self, name, sex, birthday, department):
+        Person.__init__(self, name, sex, birthday, Student._id_gen())
+
+        self._department = department   
+        self._enroll_date = datetime.date.today()   # 入学年份
+        self._courses = {} # 空字典，用以记录课程成绩
+
+        # 选课方法
+        def set_course(self, course_name):
+            self._courses[course_name] = None   # 存入了上述字典，并把该课程对应的成绩value设为none
+
+        # 设置成绩（前提必须选课）
+        def set_score(self, course_name, score):
+            # 判断是否已选择该课程
+            if course_name not in self._courses:
+                raise PersonValueError("No this course selected:", course_name)
+            self._courses[course_name] = score
+
+        # 列出所有成绩的列表
+        def score(self):
+            # ?????这语法.....骚啊
+            return [(cname, self._courses[cname]) for cname in self._courses]
+
+        # 获取学生细节（多态？）
+        def details(self):
+            return ", ".join((Person.details(self),
+                                "入学日期：" + str(self._enroll_date),
+                                "院系：", + str(self._department),
+                                "课程记录：" + str(self.score())
+                                ))
+
+
+
