@@ -3,7 +3,7 @@ Data Structures and Algorithms in Python
 
 
 
-### part2 抽象数据类型和Python类
+## part2 抽象数据类型和Python类
 
 #### 构造有理数类ADT
 
@@ -37,5 +37,30 @@ ADT Person:														# 定义人员抽象数据类型
     set_name(self, str name) # 修改人员姓名
     <(self, Person another)	# 基于人员编号比较两个记录
     details(self)	# 给出人员记录里保存的数据详情
+```
+
+
+
+
+
+
+
+## part3 线性表
+
+#### 单链表类的实现
+
+```python
+ADT List:				# 一个表抽象数据类型
+    List(self)			# 表构造操作，创建一个新表
+    is_empty(self)		# 判断self是否为一个空表
+    len(self)			# 获取self的长度
+    prepend(self, elem)		# 将元素elem加入表中作为第一个元素
+    append(self, elem)		# 将元素elem加入表中作为最后一个元素
+    insert(self, elem, i)		# 将元素elem加入表中最为第i个元素，其他元素的顺序不变
+    del_first(self)			# 删除表中的首元素
+    del_last(self)			# 删除表中的尾元素
+    del(self, i)			# 删除表中第i个元素
+    search(self, elem)		# 查找元素elem在表中出现的位置，不存在时返回-1
+    forall(self, op)		# 对表中的每个元素执行操作op
 ```
 
