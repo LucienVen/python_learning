@@ -69,6 +69,62 @@ class LList:
         p.next = None
         return e
 
+    # 找到满足给定条件的表元素
+    #  ?????? 怎么使用？？？？
+    def find(self, pred):
+        p = self._head
+        while p is not None:
+            if pred(p.elem):
+                return p.elem
+            p = p.next
+
+    # 返回被操作的表的情况
+    def printAll(self):
+        p = self._head
+        while p is not None:
+            print(p.elem, end='')
+            if p.next is not None:
+                print(', ', end='')
+            p = p.next
+        print('')
+
+    # 表的遍历
+    def for_each(self, proc):   # proc => eg:print
+        p = self._head
+        while p is not None:
+            proc(p.elem)
+            p = p.next
+
+    # 为LList类定义对象的一个迭代器
+    def elements(self):
+        p = self._head
+        while p is not None:
+            yield p.elem
+            p = p.next
+
+    # 筛选生成器
+    def filter(self, pred):
+        p = self._head
+        while p is not None:
+            if pred(p.elem):
+                yield p.elem
+            p = p.next
+
+
+
+# 对链表的简单操作
+mlist1 = LList()
+for i in range(10):
+    mlist1.prepend(i)
+for i in range(10):
+    mlist1.append(i)
+mlist1.printAll()
+# mlist1.for_each(print)
+
+
+
+
+
 
 
 
