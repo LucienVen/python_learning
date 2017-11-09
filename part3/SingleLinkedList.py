@@ -43,7 +43,7 @@ class LList:
     def append(self, elem):
         if self._head is None:
             self._head = LNode(elem)
-            return 
+            return
         # 找到链表最后一个结点
         p = self._head
         while p.next is not None:
@@ -54,7 +54,7 @@ class LList:
     def pop_last(self):
         if self._head is None:
             raise LinkedListUnderflow("in pop_last")
-        
+
         p = self._head
         # 如果表中只有一个元素
         if p.next is None:
@@ -64,7 +64,7 @@ class LList:
 
         while p.next.next is not None:
             p = p.next
-         
+
         e = p.next.elem
         p.next = None
         return e
@@ -111,50 +111,6 @@ class LList:
             p = p.next
 
 
-
-# 继承和扩充定义新链表类
-class LList1(LList):
-    def __init__(self):
-        LList.__init__(self)
-        self._rear = None
-
-    # 覆盖prepend方法，表首插入元素
-    def prepend(self, elem):
-        if self._head is None:
-            self._head = LNode(elem, self._head)
-            self._rear = self._head
-        else:
-            self._head = LNode(elem, self._head)
-
-    # append，表尾插入元素
-    def append(self, elem):
-        if self._head is None:
-            self._head = LNode(elem, self._head)
-            self._rear = self._head
-        else:
-            self._rear.next = LNode(elem)
-            self._rear = self._rear.next
-
-    # 弹出末元素的操作pop_last
-    def pop_last(self):
-        # 判断是否为空表
-        if self._head is None:
-            raise LinkedListUnderflow("in pop_last")
-        p = self._head
-        # 如果表只有一个元素
-        if p.next is None:
-            e = p.elem
-            self._head = None
-            return e
-        # 直到p.next是最后结点
-        while p.next.next is not None:
-            p = p.next
-        
-        e = p.next.elem
-        self._rear = p
-        return e
-        
-        
 
 
 # 对链表的简单操作
