@@ -35,7 +35,7 @@ class Person:
         self._sex = sex
         self._birthday = birthday
         self._id = ident
-        
+
         # 实例计数
         Person._num += 1
 
@@ -47,7 +47,7 @@ class Person:
 
     def sex(self):
         return self._sex
-    
+
     def birthday(self):
         return self._birthday
 
@@ -70,7 +70,7 @@ class Person:
         return " ".join((self._id, self._name, self._sex, str(self._birthday)))
 
     def details(self):
-        return " ".join(("编号：" + self._id,
+        return ", ".join(("编号：" + self._id,
                         "姓名：" + self._name,
                         "性别：" + self._sex,
                         "出生日期：" + str(self._birthday)))
@@ -90,7 +90,7 @@ class Student(Person):
     def __init__(self, name, sex, birthday, department):
         Person.__init__(self, name, sex, birthday, Student._id_gen())
 
-        self._department = department   
+        self._department = department
         self._enroll_date = datetime.date.today()   # 入学年份
         self._courses = {} # 空字典，用以记录课程成绩
 
@@ -118,5 +118,65 @@ class Student(Person):
                                 "课程记录：" + str(self.score())
                                 ))
 
+# 教职工类的实现
+class Staff(Person):
+    _id_num = 0
+    # 实现职工号的生成
+    @classmethod
+    def _id_gen(cls, birthday):
+        cls._id_num += 1
+        birthday_year = datetime.date(*birthday).year
+        return "0{:4}:{:5}".format(birthday_year, cls._id_num)
+
+    def __init__(self, name, sex, birthday, entry_date=None):
+        super().__init__(name, sex, birthday, Staff._id_gen(birthday))
+        if entry_date:
+            try:
+                self._entry_date = datetime.date(*entry_date)
+            except:
+                raise PersonValueError("Wrong date:", entry_date)
+
+        else:
+            self._entry_date = datetime.date.today()
+        self._salary = 1720     # 默认最低工资
+        self._department = "未定"     # 需要另行设置
+        self._position = "未定"       # 需要另行设置
+
+    def set_salary(self, amount):
+        if not type(amount) is int:
+            raise TypeError
+        self._salary = amount
+
+    def set_position(self, position):
+        self._position = position
+
+    def set_department(self, department):
+        self._department = department
+
+    def details(self):
+        return ", ".join((super().details(), 
+                            "入职日期：" + str(self._entry_date),
+                            "院系：" + self._department,
+                            "职位：" + self._position,
+                            "工资：" + str(self._salary)
+                            ))
 
 
+
+# 简单使用语句
+def main():
+    p1 = Staff("张三", "女", (1974, 10 ,16))
+    p2 = Staff("李四", "男", (1994, 12, 17))
+
+    print(p1)
+    print(p2)
+
+    p1.set_department("数学")
+    p1.set_position("副教授")
+    p1.set_salary(6000)
+
+    print(p1.details())
+    print(p2.details())
+
+if __name__ == '__main__':
+    main()
