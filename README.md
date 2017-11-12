@@ -66,6 +66,23 @@ ADT List:				# 一个表抽象数据类型
 
 
 
+注：
+
+```python
+# 结点类
+LNode:
+    self.elem = elem
+    self.next = next_	
+    self.rear = rear	# default:None
+    
+# 链表类 __init__
+LinkedList:
+    __init__:
+        self._head = None
+        self._rear = None
+        
+```
+
 
 
 
