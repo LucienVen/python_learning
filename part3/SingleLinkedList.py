@@ -60,6 +60,7 @@ class LList:
         if p.next is None:
             e = p.elem
             self._head = None
+            # print(e)
             return e
 
         while p.next.next is not None:
@@ -67,6 +68,7 @@ class LList:
 
         e = p.next.elem
         p.next = None
+        # print(e)
         return e
 
     # 找到满足给定条件的表元素
@@ -81,12 +83,15 @@ class LList:
     # 返回被操作的表的情况
     def printAll(self):
         p = self._head
+        temp = 0
         while p is not None:
             print(p.elem, end='')
             if p.next is not None:
                 print(', ', end='')
             p = p.next
+            temp += 1
         print('')
+        print("length:{}".format(temp))
 
     # 表的遍历
     def for_each(self, proc):   # proc => eg:print
@@ -111,15 +116,95 @@ class LList:
             p = p.next
 
 
+    # 插入排序，移动表中元素
+    def sort1(self):
+        if self._head is None:
+            return
+        crt = self._head.next   # 从首结点之后开始处理
+        while crt is not None:
+            x = crt.elem
+            p = self._head
+            # 跳过小元素
+            while p is not crt and p.elem <= x:
+                p = p.next
+            while p is not crt:
+                y = p.elem
+                p.elem = x
+                x = y
+                p = p.next
+            
+            crt.elem = x
+            crt = crt.next
+
+    # 插入排序，调整链接的方式
+    def sort(self):
+        p = self._head
+        if p is None or p.next is None:
+            return
+        
+        rem = p.next
+        p.next = None
+
+        while rem is not None:
+            p = self._head
+            q = None
+
+            while p is not None and p.elem <= rem.elem:
+                q = p
+                p = p.next
+            
+            if q is None:
+                self._head = rem
+            else:
+                q.next = rem
+            
+            q = rem
+            rem = rem.next
+            q.next = p
 
 
-# 对链表的简单操作
-# mlist1 = LList()
-# for i in range(10):
-#     mlist1.prepend(i)
+    # 删除倒数第N个元素
+    # def removeNthFromEnd(self, n):
+    #     if self._head is None:
+    #         raise LinkedListUnderflow("List is None")
+
+    # p = self._head
+    # # 只有一个元素的情况
+    # if p.next is None:
+    #     e = p.elem
+    #     self._head = None
+    #     print(e)
+    #     return e
+
+    # # 遍历计算链表长度
+    # temp = 0
+    # while p is not None:
+    #     p = p.next
+    #     temp += 1
+
+    # # 删除并返回元素
+    # p = self._head
+    # num = 0
+    # while p is not None:
+    #     if num == (temp - n):
+
+    #     p = p.next
+
+
+
+
+
+
+    # 对链表的简单操作
+mlist1 = LList()
+for i in range(10):
+    mlist1.prepend(i)
 # for i in range(10):
 #     mlist1.append(i)
-# mlist1.printAll()
+mlist1.printAll()
+# mlist1.pop_last()
+mlist1.sort1()
+mlist1.printAll()
 # mlist1.for_each(print)
 
 
